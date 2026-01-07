@@ -17,7 +17,7 @@
 body{
   margin:0;
   background:var(--bg);
-  font-family:"Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
   color:var(--text);
 }
 
@@ -29,24 +29,15 @@ body{
   box-shadow:0 16px 36px rgba(0,0,0,.08);
 }
 
-/* 品牌區塊 */
-.brand{text-align:center;margin-bottom:12px; height:140px;}
+.brand{text-align:center;margin-bottom:12px;}
 .brand img{
   width:120px;
-  max-height:100%;
-  animation: float 4.5s ease-in-out infinite;
-  -webkit-animation: float 4.5s ease-in-out infinite;
+  animation:float 4.5s ease-in-out infinite;
 }
-
 @keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-6px);}
-  100%{transform:translateY(0);}
-}
-@-webkit-keyframes float{
-  0%{-webkit-transform:translateY(0);}
-  50%{-webkit-transform:translateY(-6px);}
-  100%{-webkit-transform:translateY(0);}
+  0%{transform:translateY(0);opacity:.85;}
+  50%{transform:translateY(-6px);opacity:1;}
+  100%{transform:translateY(0);opacity:.85;}
 }
 
 h1{text-align:center;font-size:1.25rem;margin-bottom:24px;}
@@ -88,10 +79,7 @@ button{
 <div class="wrapper">
 <div class="card">
 
-<div class="brand">
-  <!-- 注意檔案名稱完全對應 GitHub 上的 PNG -->
-  <img src="logo.PNG" alt="Ningpro Logo">
-</div>
+<div class="brand"><img src="logo.PNG" alt="brand"></div>
 
 <h1>INTERNATIONAL AESTHETICS<br>國際美學精品委任報價</h1>
 
@@ -107,6 +95,12 @@ button{
   <option value="relative">親戚 / 熟人</option>
   <option value="risk">非固定來源</option>
 </select>
+
+<label>運費（USD，可選）</label>
+<input id="shipping" type="number" placeholder="例：10">
+
+<label>關稅 / 手續費（USD，可選）</label>
+<input id="customs" type="number" placeholder="例：5">
 
 <button id="calcBtn">產生專屬報價</button>
 
@@ -129,10 +123,10 @@ button{
 </div>
 
 <script>
-/* ===== 可調整設定 ===== */
+/* ===== 設定 ===== */
 const CONFIG = {
-  exchangeRate: 33.5,
-  multiplier: {
+  exchangeRate: 33.5,   // USD → TWD 參考匯率
+  multiplier: {          // 原本來源倍率，可保留參考
     official: 1.8,
     relative: 1.95,
     risk: 2.1
@@ -140,8 +134,9 @@ const CONFIG = {
   disclaimerText: `
 本報價為國際委任服務之統整金額，已包含合理服務成本與風險評估。<br>
 海外商品來源、價格波動、物流與通關風險，皆屬委任評估範圍。<br>
-實際稅務、關稅或政府規費，依相關法令或申報狀況另行處理。<br>
-本公司不涉及商品販售，僅提供委任代訂與顧問勞務。
+本公司不涉及商品販售，僅提供委任代訂與顧問勞務。<br>
+【國際代購委任聲明】<br>
+委任商品限於個人自用，支付款項後即進入國際採購流程，恕不接受取消訂單或退費。
 `
 };
 
@@ -153,12 +148,17 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   if(!usd) return;
 
   const src = document.getElementById("src").value;
-  const m = CONFIG.multiplier[src];
+  const m = CONFIG.multiplier[src]; // 可保留參考倍率
 
-  const ntd = Math.ceil(usd * CONFIG.exchangeRate * m);
+  const shipping = parseFloat(document.getElementById("shipping").value) || 0;
+  const customs = parseFloat(document.getElementById("customs").value) || 0;
+
+  // 新公式：乘 1.5 + 運費 + 關稅
+  const customerUSD = usd * 1.5 + shipping + customs;
+  const ntd = Math.ceil(customerUSD * CONFIG.exchangeRate);
 
   document.getElementById("ntd").innerText = "NT$ " + ntd.toLocaleString();
-  document.getElementById("usdShow").innerText = "USD " + usd.toLocaleString();
+  document.getElementById("usdShow").innerText = "USD " + customerUSD.toLocaleString();
   document.getElementById("result").style.display = "block";
 
   if(!sessionStorage.getItem("greeted")){
