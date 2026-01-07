@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ningpro International Aesthetics</title>
 
 <style>
-/* ======================
-   全站色系設定（奶茶色）
-====================== */
 :root{
   --bg:#F5F5F7;
   --card:#FFFFFF;
@@ -18,208 +14,111 @@
   --soft:#E8DCD3;
 }
 
-/* ======================
-   字體設定（博物館感・精緻）
-====================== */
-/*
-第一順位：蘋果 SF 系列
-第二順位：較正式襯線（博物館感）
-最後：安全字體
-*/
 body{
   margin:0;
   background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color:var(--text);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Text",
-    "SF Pro Display",
-    "New York",
-    "Times New Roman",
-    serif;
 }
 
-/* ======================
-   版面結構
-====================== */
-.wrapper{
-  max-width:420px;
-  margin:40px auto;
-  padding:0 16px;
-}
-
+.wrapper{max-width:420px;margin:40px auto;padding:0 16px;}
 .card{
   background:var(--card);
   border-radius:20px;
   padding:30px 26px 32px;
   box-shadow:0 16px 36px rgba(0,0,0,.08);
-  overflow:hidden;
 }
 
-/* ======================
-   Logo 動畫
-====================== */
-.brand{
-  text-align:center;
-  margin-bottom:12px;
-}
-
+.brand{text-align:center;margin-bottom:12px;}
 .brand img{
   width:120px;
-  animation:float 4.5s ease-in-out infinite;
+  animation: float 4.5s ease-in-out infinite;
+  -webkit-animation: float 4.5s ease-in-out infinite; /* Safari */
 }
 
 @keyframes float{
-  0%{transform:translateY(0);opacity:.9;}
-  50%{transform:translateY(-6px);opacity:1;}
-  100%{transform:translateY(0);opacity:.9;}
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(0);}
 }
 
-/* ======================
-   標題
-====================== */
-h1{
-  text-align:center;
-  font-size:1.2rem;
-  letter-spacing:.04em;
-  margin-bottom:24px;
+@-webkit-keyframes float{
+  0%{-webkit-transform:translateY(0);}
+  50%{-webkit-transform:translateY(-6px);}
+  100%{-webkit-transform:translateY(0);}
 }
 
-/* ======================
-   表單（iPad 不跑版）
-====================== */
-label{
-  font-size:.82rem;
-  display:block;
-  margin-bottom:6px;
-}
+h1{text-align:center;font-size:1.25rem;margin-bottom:24px;}
 
-input,
-select{
-  width:100%;
-  max-width:100%;
+label{font-size:.82rem;display:block;margin-bottom:6px;}
+input,select{
+  width:100%;padding:14px 16px;border-radius:14px;
+  border:1px solid #ddd;margin-bottom:18px;
   box-sizing:border-box;
-  padding:14px 16px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  margin-bottom:18px;
-  font-family:inherit;
-  font-size:.9rem;
 }
 
-/* ======================
-   按鈕
-====================== */
 button{
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:18px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:600;
-  font-size:.95rem;
+  width:100%;padding:16px;border:none;border-radius:18px;
+  background:var(--accent);color:#fff;font-weight:600;
 }
 
-/* ======================
-   結果顯示
-====================== */
-.result{
-  text-align:center;
-  display:none;
-  margin-top:26px;
-}
+.result{text-align:center;display:none;margin-top:26px;}
+.ntd{font-size:2.2rem;font-weight:700;}
+.usd{font-size:.9rem;opacity:.65;}
 
-.ntd{
-  font-size:2.2rem;
-  font-weight:700;
-}
-
-.usd{
-  font-size:.9rem;
-  opacity:.65;
-}
-
-/* ======================
-   聲明
-====================== */
 .disclaimer{
-  margin-top:28px;
-  font-size:.75rem;
-  line-height:1.55;
-  color:#7A6A6A;
-  border-top:1px solid var(--soft);
-  padding-top:14px;
+  margin-top:28px;font-size:.75rem;line-height:1.55;
+  color:#7A6A6A;border-top:1px solid var(--soft);padding-top:14px;
 }
 
-/* ======================
-   彈窗
-====================== */
+/* Modal */
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  display:none;
-  align-items:center;
-  justify-content:center;
+  position:fixed;inset:0;background:rgba(0,0,0,.35);
+  display:none;align-items:center;justify-content:center;
 }
-
 .modal-box{
-  background:#fff;
-  border-radius:18px;
-  padding:22px 20px;
-  max-width:300px;
-  text-align:center;
+  background:#fff;border-radius:18px;padding:22px 20px;
+  max-width:300px;text-align:center;
 }
-
-.modal-box button{
-  margin-top:12px;
-}
+.modal-box button{margin-top:12px;}
 </style>
 </head>
 
 <body>
-
 <div class="wrapper">
-  <div class="card">
+<div class="card">
 
-    <!-- Logo -->
-    <div class="brand">
-      <img src="logo.png" alt="Ningpro Logo">
-    </div>
-
-    <h1>
-      INTERNATIONAL AESTHETICS<br>
-      國際美學精品委任報價
-    </h1>
-
-    <label>商品名稱</label>
-    <input id="item" placeholder="例：限定色奶茶杯">
-
-    <label>海外採購參考金額（USD）</label>
-    <input id="usd" type="number" placeholder="僅作國際價格參考">
-
-    <label>採購來源（內部）</label>
-    <select id="src">
-      <option value="official">官網 / 官方</option>
-      <option value="relative">親戚 / 熟人</option>
-      <option value="risk">非固定來源</option>
-    </select>
-
-    <button id="calcBtn">產生專屬報價</button>
-
-    <div class="result" id="result">
-      <div class="ntd" id="ntd">NT$ 0</div>
-      <div class="usd" id="usdShow">USD 0</div>
-    </div>
-
-    <div class="disclaimer" id="disclaimer"></div>
-
-  </div>
+<div class="brand">
+  <img src="logo.png" alt="Ningpro Logo">
 </div>
 
-<!-- 彈窗 -->
+<h1>INTERNATIONAL AESTHETICS<br>國際美學精品委任報價</h1>
+
+<label>商品名稱</label>
+<input id="item" placeholder="例：限定色奶茶杯">
+
+<label>海外採購參考金額（USD）</label>
+<input id="usd" type="number" placeholder="僅作國際價格參考">
+
+<label>採購來源（內部）</label>
+<select id="src">
+  <option value="official">官網 / 官方</option>
+  <option value="relative">親戚 / 熟人</option>
+  <option value="risk">非固定來源</option>
+</select>
+
+<button id="calcBtn">產生專屬報價</button>
+
+<div class="result" id="result">
+  <div class="ntd" id="ntd">NT$ 0</div>
+  <div class="usd" id="usdShow">USD 0</div>
+</div>
+
+<div class="disclaimer" id="disclaimer"></div>
+
+</div>
+</div>
+
 <div class="modal" id="modal">
   <div class="modal-box">
     ✨ 感謝您欣賞獨到的眼光<br>
@@ -229,16 +128,9 @@ button{
 </div>
 
 <script>
-/* ======================
-   設定區（之後只改這）
-====================== */
 const CONFIG = {
   exchangeRate: 33.5,
-  multiplier: {
-    official: 1.8,
-    relative: 1.95,
-    risk: 2.1
-  },
+  multiplier: { official:1.8, relative:1.95, risk:2.1 },
   disclaimerText: `
 本報價為國際委任服務之統整金額，已包含合理服務成本與風險評估。<br>
 海外商品來源、價格波動、物流與通關風險，皆屬委任評估範圍。<br>
@@ -247,9 +139,6 @@ const CONFIG = {
 `
 };
 
-/* ======================
-   核心邏輯（不動）
-====================== */
 document.getElementById("disclaimer").innerHTML = CONFIG.disclaimerText;
 
 document.getElementById("calcBtn").addEventListener("click", () => {
@@ -274,6 +163,5 @@ document.getElementById("modalClose").addEventListener("click", ()=>{
   document.getElementById("modal").style.display="none";
 });
 </script>
-
 </body>
 </html>
